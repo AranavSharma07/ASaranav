@@ -28,7 +28,18 @@ export class FrameLoader {
   const target=Math.max(lo,Math.min(hi,Math.round(frame)));
   // Never substitute a different pose for a missing frame. Stage retains the
   // last valid frame from this shot until the exact requested frame is ready.
-  const image=this.images.get(target);
+  // If a frame is missing/corrupt, keep the closest already-decoded frame
+  // from this same shot. Never return an empty image for a whole section and
+  // never blend two silhouettes together.
+  let image=this.images.get(target);
+  if(!image){
+   let distance=Infinity;
+   for(const [id,candidate] of this.images){
+    if(id<lo||id>hi) continue;
+    const d=Math.abs(id-target);
+    if(d<distance){distance=d;image=candidate;}
+   }
+  }
   return {a:image,b:image,frac:0};
  }
  subscribe(fn:()=>void){this.listeners.add(fn);return()=>this.listeners.delete(fn)}
