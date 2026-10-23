@@ -8,48 +8,27 @@
 
 @keyframes orbitSpin{to{transform:rotate(360deg)}}
 
-/* Premium responsive refinement */
-:root{--red:#f21d2f;--ink:#111113;--mute:#68686e;--line:rgba(17,17,19,.10);color-scheme:light}
-html{scrollbar-width:thin;scrollbar-color:var(--red) #f1f1f2}
-body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-button,a{-webkit-tap-highlight-color:transparent}
-:focus-visible{outline:3px solid rgba(242,29,47,.72);outline-offset:4px}
-.pill,.project-card,.stat-card,.award-counter,.nav-pill{transition-timing-function:cubic-bezier(.22,.8,.25,1)}
-.pill{box-shadow:0 8px 22px rgba(17,17,19,.05);transition:transform .3s cubic-bezier(.22,.8,.25,1),box-shadow .3s,background .3s}
-.pill:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(17,17,19,.12)}
-.project-card{box-shadow:0 28px 80px rgba(17,17,19,.10),0 2px 8px rgba(17,17,19,.035);border-color:rgba(17,17,19,.08)}
-.stat-card{box-shadow:0 16px 44px rgba(17,17,19,.055);border-color:rgba(17,17,19,.09);transition:transform .35s cubic-bezier(.22,.8,.25,1),box-shadow .35s}
-.stat-card:hover{transform:translateY(-4px);box-shadow:0 22px 55px rgba(17,17,19,.10)}
-.nav-pill{box-shadow:0 12px 38px rgba(17,17,19,.08);border-color:rgba(255,255,255,.8)}
-.stage{display:block;contain:strict;will-change:contents}
+
+/* Premium refinement pass: clearer focus, more consistent easing, and mobile-safe viewport sizing. */
+:root{scrollbar-gutter:stable;--ease-premium:cubic-bezier(.22,1,.36,1)}
+html{scroll-behavior:smooth;scroll-padding-top:5rem;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overscroll-behavior-x:none}
+button,a,[role="button"]{-webkit-tap-highlight-color:transparent}
+:where(button,a,[tabindex]):focus-visible{outline:2px solid var(--red);outline-offset:4px}
+.pill,.project-card,.stat-card,.nav-pill button,.contact-links a{transition-timing-function:var(--ease-premium)}
 @media(max-width:819px){
- .hero-copy,.about-copy,.journey-copy,.skills-copy{box-shadow:0 22px 70px rgba(17,17,19,.07);border:1px solid rgba(255,255,255,.9)}
- .hero-copy{top:max(15vh,92px);max-height:78vh;overflow:auto}
- .hero h1{font-size:clamp(46px,11.4vw,76px);line-height:.9;letter-spacing:-.035em}
- .actions{margin-top:20px}.hero-foot{margin-top:18px}
- .work-deck{height:min(60vh,560px)}
- .project-card{padding:clamp(17px,4.5vw,24px);box-shadow:0 22px 60px rgba(17,17,19,.12)}
- .stats .tilt-card:last-child{display:block}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.stat-card{height:94px}
- .cert-cylinder{animation-duration:48s}
- .contact-bottom{gap:18px}
- .contact-links a{min-height:44px;align-items:center}
+ .sticky{height:100svh;height:100dvh;min-height:560px}
+ .stage{height:100svh;height:100dvh}
+ .hero-copy{max-height:calc(100dvh - 110px);overflow:auto}
+ .project-card{overflow:hidden}
+ .contact-content{padding-bottom:max(4vh,env(safe-area-inset-bottom))}
 }
-@media(max-width:390px){
- .hero-copy{left:4vw;width:92vw;padding:14px;top:14vh}
+@media(max-width:380px){
+ .hero-copy{top:18vh;padding:14px}
  .hero h1{font-size:clamp(42px,11vw,52px)}
- .intro{font-size:14px}.hero-description{font-size:14px}
- .pill{height:44px;padding:0 13px}
- .about-copy,.journey-copy,.skills-copy{left:4vw;right:4vw;padding:14px}
- .manifesto{font-size:24px}.stats{gap:6px}.stat-card{padding:10px}.odo{font-size:27px}
+ .actions .pill{padding:0 13px}
  .journey-copy h2,.skills-copy h2{font-size:48px}
- .timeline-item{grid-template-columns:62px 1fr;gap:8px}.timeline-item h3{font-size:21px}
- .awards-copy h2{font-size:46px}
+ .timeline-item{grid-template-columns:62px 1fr;gap:8px}
+ .award-counter{padding:8px}
 }
-@media(orientation:landscape) and (max-height:520px){
- .hero-copy{top:17vh;width:60vw;max-height:76vh;overflow:auto;padding:12px 18px}
- .hero h1{font-size:clamp(38px,7vw,64px);margin-bottom:12px}
- .hero-foot{margin-top:12px}.actions{margin-top:14px}
- .about-copy,.journey-copy,.skills-copy{top:15vh;bottom:4vh;overflow:auto}
- .work-deck{top:22vh;height:58vh}
-}
-@media(prefers-reduced-motion:reduce){.skills-orbit,.skills-orbit span,.skills-tape div,.cert-cylinder{animation:none!important}}
+@media(hover:none){.cursor-dot,.cursor-ring{display:none}.pill:hover span:first-child{transform:none}.pill:hover span+span{transform:translateY(120%)}}

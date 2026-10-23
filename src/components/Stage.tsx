@@ -18,7 +18,9 @@ export function Stage({loader,statesRef}:{loader:FrameLoader;statesRef:React.Mut
    const {a,b,frac}=loader.get(frame,shot);
    if(clip){const skew=.2*vh,e=-skew+(vw+2*skew)*Math.max(0,Math.min(1,transitionT));ctx.save();ctx.beginPath();if(clip==='right'){ctx.moveTo(e+skew,0);ctx.lineTo(e-skew,vh);ctx.lineTo(vw,vh);ctx.lineTo(vw,0)}else{ctx.moveTo(0,0);ctx.lineTo(e+skew,0);ctx.lineTo(e-skew,vh);ctx.lineTo(0,vh)}ctx.closePath();ctx.clip();}
    const paint=(im:HTMLImageElement|undefined,opacity=1)=>{if(!im)return;ctx.globalAlpha=opacity;ctx.drawImage(im,offX+shot.box[0]*scale,offY+shot.box[1]*scale,shot.box[2]*scale,shot.box[3]*scale)};
-   paint(a,opacity);if(b&&b!==a)paint(b,opacity*frac);ctx.globalAlpha=1;if(clip)ctx.restore();
+   // Cross-fade adjacent frames instead of layering the next frame over a fully opaque previous frame.
+   // The old approach produced a doubled/ghosted character during scroll interpolation.
+   if(b&&b!==a){paint(a,opacity*(1-frac));paint(b,opacity*frac)}else{paint(a,opacity)}ctx.globalAlpha=1;if(clip)ctx.restore();
   };
   const draw=()=>{const dpr=Math.min(devicePixelRatio||1,2),vw=innerWidth,vh=innerHeight;mouse.current.x+=(mouse.current.tx-mouse.current.x)*.06;mouse.current.y+=(mouse.current.ty-mouse.current.y)*.06;const states=statesRef.current;
    if(states.length){const y=window.scrollY,lead=.78*vh,span=.62*vh;let active=0;for(let i=0;i<states.length;i++)if(y>=states[i].top-lead)active=i;const cur=states[active];const frame=scenes[active].from+(scenes[active].to-scenes[active].from)*cur.p;
