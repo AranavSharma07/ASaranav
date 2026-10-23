@@ -35,6 +35,15 @@ Edit `src/data.ts`:
 - Frame loading and rendering run outside React's scroll render cycle; section state is held in a ref.
 - `public/resume.pdf` is the original uploaded résumé, copied without editing.
 
+## Polish update (October 2026)
+
+- Added a responsive polish layer for small phones, tablets, desktop, and short landscape screens while preserving the original scroll-driven character/canvas animation and visual direction.
+- Refined surface depth, hover/focus states, button feedback, text rendering, and card shadows.
+- Added dynamic viewport-height support for mobile browser chrome and safe-area spacing.
+- Added keyboard-visible focus states, touch-friendly sizing, and reduced-motion handling.
+- Added social preview metadata and explicit index/follow robots metadata in `index.html`.
+- Kept the original project structure and relative Vite asset paths for deployment portability.
+
 ## Validation status
 
 TypeScript/TSX syntax transpilation passed in the available environment. A full `npm run typecheck`, production Vite build, and headless Chromium screenshots at desktop/mobile section and blade-transition checkpoints could not be completed here because the npm registry was unreachable and the project dependencies were not installed. Run the commands above in an internet-connected environment, then review `qa/red-background-composite.jpg` for the current frame matte. The current video matte is a best-effort OpenCV fallback and needs a final visual pass before public launch.

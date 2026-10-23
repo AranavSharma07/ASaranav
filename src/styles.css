@@ -7,3 +7,120 @@
 .back-year,.back-contact-title{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:0;transition:opacity .4s}.back-year{font:44vh/.8 Anton,sans-serif;color:transparent;-webkit-text-stroke:2px rgba(255,31,31,.28);letter-spacing:-.04em}.layer-back.scene-journey .back-year{opacity:1}.back-contact-title{font: min(36vh,26vw)/.84 Anton,sans-serif;color:#fff;text-align:center;display:block;top:10vh;inset:auto 0 auto;white-space:nowrap}.layer-back.scene-contact .back-contact-title{opacity:1}.about-wash,.work-floor,.year-outline,.contact-giant{display:none}
 
 @keyframes orbitSpin{to{transform:rotate(360deg)}}
+
+/* Premium polish layer — progressive enhancement, preserving the original character stage. */
+:root{--red:#f5222d;--ink:#101014;--mute:#65656d;--line:rgba(16,16,20,.1);--ease-premium:cubic-bezier(.22,1,.36,1);color-scheme:light}
+html{scrollbar-width:thin;scrollbar-color:rgba(245,34,45,.6) #f4f4f5}
+body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+::selection{background:rgba(245,34,45,.18);color:var(--ink)}
+button,a{-webkit-tap-highlight-color:transparent}
+button:focus-visible,a:focus-visible{outline:2px solid var(--red);outline-offset:4px;border-radius:8px}
+.stage{contain:strict;will-change:contents}
+.layer-back,.layer-front{transform:translateZ(0);backface-visibility:hidden}
+.hero-copy,.about-copy,.journey-copy,.skills-copy{backface-visibility:hidden}
+.pill,.nav-pill button,.project-link,.contact-links a{transition:color .28s var(--ease-premium),background-color .28s var(--ease-premium),border-color .28s var(--ease-premium),transform .35s var(--ease-premium),box-shadow .35s var(--ease-premium)}
+.pill{box-shadow:0 8px 22px rgba(16,16,20,.06)}
+.pill.primary{box-shadow:0 10px 26px rgba(245,34,45,.2)}
+.pill.primary:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(16,16,20,.15)}
+.nav-pill{background:rgba(255,255,255,.78);border-color:rgba(255,255,255,.92);box-shadow:0 12px 34px rgba(16,16,20,.07)}
+.nav-pill button{min-height:40px}
+.nav-pill button:hover:not(.active){background:rgba(245,34,45,.07);color:var(--red)}
+.project-card{box-shadow:0 30px 90px rgba(16,16,20,.09),0 2px 8px rgba(16,16,20,.025);will-change:transform,opacity;backface-visibility:hidden}
+.stat-card{transition:transform .45s var(--ease-premium),box-shadow .45s var(--ease-premium),border-color .45s var(--ease-premium)}
+@media(hover:hover) and (pointer:fine){.stat-card:hover{transform:translateY(-5px);box-shadow:0 20px 48px rgba(245,34,45,.12);border-color:rgba(245,34,45,.3)}.project-card:hover{box-shadow:0 34px 100px rgba(16,16,20,.13)}}
+/* Consistent viewport sizing on mobile browsers with dynamic toolbars. */
+@supports(height:100dvh){.sticky{height:100dvh}.stage{height:100dvh}.preloader{min-height:100dvh}}
+@media(max-width:819px){
+  .sticky{min-height:560px}
+  .hero-copy{top:max(17vh,108px);top:max(17dvh,108px);padding:clamp(16px,4.5vw,24px);background:rgba(255,255,255,.88);border:1px solid rgba(255,255,255,.95);box-shadow:0 20px 60px rgba(16,16,20,.06)}
+  .hero h1{font-size:clamp(43px,11.6vw,82px);letter-spacing:-.045em;line-height:.88;overflow-wrap:normal}
+  .hero-description{max-width:38ch;line-height:1.45}
+  .actions{flex-wrap:wrap}
+  .pill{min-height:46px}
+  .about-copy,.journey-copy,.skills-copy{box-shadow:0 20px 60px rgba(16,16,20,.045);border:1px solid rgba(255,255,255,.92)}
+  .work-deck{height:min(60vh,540px);height:min(60dvh,540px);perspective:1000px}
+  .project-card{padding:clamp(18px,4vw,24px);border-radius:24px;box-shadow:0 22px 60px rgba(16,16,20,.1)}
+  .project-card h3{overflow-wrap:anywhere;line-height:.94}
+  .chips span{font-size:9px;padding:7px 9px}
+  .skills-orbit span{box-shadow:0 5px 18px rgba(16,16,20,.055)}
+  .cert-cylinder{max-width:100%;overflow:visible}
+  .contact-content{padding-top:max(12vh,90px);padding-top:max(12dvh,90px)}
+  .contact-bottom{gap:clamp(18px,4vh,30px)}
+  .email{line-height:.96;letter-spacing:-.025em}
+}
+@media(max-width:480px){
+  .hud{top:max(12px,env(safe-area-inset-top));left:5vw;right:5vw}
+  .brand{font-size:23px}
+  .progress i{height:34px}
+  .back-name{top:10vh;top:10dvh;font-size:24vw;letter-spacing:-.06em}
+  .hero-copy{left:5vw;width:90vw;top:19vh;top:19dvh}
+  .hero h1{font-size:clamp(42px,11vw,58px)}
+  .hero-foot{margin-top:20px;line-height:1.6}
+  .about-copy{left:5vw;right:5vw;top:11vh;top:11dvh;bottom:4vh;bottom:4dvh;padding:16px;justify-content:space-around;gap:12px}
+  .manifesto{font-size:clamp(23px,6.4vw,31px);line-height:1.08}
+  .muted{font-size:12px;line-height:1.5}
+  .stats{gap:7px}
+  .stat-card{height:92px;padding:10px}
+  .odo{font-size:28px}
+  .section-top{top:10vh;top:10dvh}
+  .work-count{font-size:32px}
+  .work-count i{width:38px;margin:0 7px}
+  .work-deck{top:21vh;top:21dvh;height:58vh;height:58dvh}
+  .project-card h3{font-size:clamp(34px,9vw,42px)}
+  .project-card p{font-size:12px;line-height:1.5}
+  .work-progress{bottom:max(6vh,30px);bottom:max(6dvh,30px)}
+  .journey-copy{top:11vh;top:11dvh;left:5vw;right:5vw;padding:16px}
+  .journey-copy h2,.skills-copy h2{font-size:clamp(46px,13vw,58px)}
+  .timeline{padding-left:17px;margin-top:16px}
+  .timeline-item{grid-template-columns:68px minmax(0,1fr);gap:8px;padding-bottom:16px}
+  .timeline-item h3{font-size:clamp(21px,5.6vw,25px)}
+  .timeline-item p{font-size:10px}
+  .node{left:-22px}
+  .skills-copy{left:5vw;width:90vw;top:11vh;top:11dvh;padding:16px}
+  .skills-orbit span{font-size:8px;padding:6px 8px}
+  .skills-tape{height:7vh;height:7dvh;bottom:7vh;bottom:7dvh}
+  .skills-tape div{font-size:22px}
+  .awards-copy{left:5vw;right:5vw;top:11vh;top:11dvh}
+  .awards-copy h2{font-size:clamp(43px,12vw,54px)}
+  .award-counter{height:68px;padding:9px}
+  .cert-cylinder{transform:scale(.62) rotateX(-14deg);transform-origin:top center;margin-top:8px;height:150px}
+  .contact-content{padding-left:5vw;padding-right:5vw;padding-bottom:max(18px,env(safe-area-inset-bottom))}
+  .email{font-size:clamp(30px,8.4vw,42px);max-width:100%}
+  .contact-links a{min-height:42px;align-items:center}
+  footer{line-height:1.6}
+}
+@media(max-width:360px){
+  .hero h1{font-size:40px}
+  .eyebrow{font-size:9px;margin-bottom:16px}
+  .pill{padding:0 12px;font-size:11px}
+  .stats .tilt-card:nth-child(2) .stat-card{padding:8px}
+  .stat-label{font-size:8px}
+  .timeline-item{grid-template-columns:58px minmax(0,1fr)}
+  .timeline-item .year{font-size:8px}
+  .timeline-item h3{font-size:20px}
+}
+@media(orientation:landscape) and (max-height:520px) and (max-width:900px){
+  .sticky{height:100svh;min-height:420px}
+  .hero-copy{top:17vh;width:64vw;max-width:650px;padding:12px 16px}
+  .hero h1{font-size:clamp(38px,7vw,58px)}
+  .hero-foot{margin-top:12px}
+  .about-copy,.journey-copy,.skills-copy{top:13vh;bottom:4vh;padding:12px 16px}
+  .manifesto{font-size:clamp(22px,4vw,32px)}
+  .stats{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .stats .tilt-card:last-child{display:block}
+  .stat-card{height:78px;padding:8px}
+  .work-deck{top:18vh;height:66vh}
+  .project-card{grid-template-columns:1fr .7fr}
+  .project-visual{display:flex}
+  .journey-copy{left:44vw;right:4vw;width:auto}
+  .timeline{margin-top:12px}
+  .timeline-item{padding-bottom:12px}
+  .skills-copy{width:48vw}
+  .contact-bottom{flex-direction:row;align-items:flex-end}
+  .email{font-size:clamp(30px,5vw,48px)}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .skills-orbit,.skills-orbit span,.skills-tape div,.cert-cylinder{animation:none!important}
+}
