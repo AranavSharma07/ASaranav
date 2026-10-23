@@ -6,9 +6,9 @@ import type {SceneState} from '../engine/director';
 export function Stage({loader,statesRef}:{loader:FrameLoader;statesRef:React.MutableRefObject<SceneState[]>}){
  const ref=useRef<HTMLCanvasElement>(null);const mouse=useRef({x:0,y:0,tx:0,ty:0});
  useEffect(()=>{const canvas=ref.current;if(!canvas)return;const ctx=canvas.getContext('2d');if(!ctx)return;let key='';let raf=0;
-  const resize=()=>{const dpr=Math.min(devicePixelRatio||1,2);canvas.width=Math.round(innerWidth*dpr);canvas.height=Math.round(innerHeight*dpr);canvas.style.width='100vw';canvas.style.height='100vh';key=''};
-  const move=(e:MouseEvent)=>{mouse.current.tx=(e.clientX/innerWidth-.5)*28;mouse.current.ty=(e.clientY/innerHeight-.5)*16};
-  window.addEventListener('resize',resize);window.addEventListener('mousemove',move);const unsubscribe=loader.subscribe(()=>{key=''});resize();
+  const resize=()=>{const dpr=Math.min(devicePixelRatio||1,2);const w=window.visualViewport?.width||innerWidth;const h=window.visualViewport?.height||innerHeight;canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);canvas.style.width='100%';canvas.style.height='100%';key=''};
+  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;const finePointer=window.matchMedia('(hover: hover) and (pointer: fine)').matches;const move=(e:MouseEvent)=>{if(reduced||!finePointer)return;mouse.current.tx=(e.clientX/innerWidth-.5)*18;mouse.current.ty=(e.clientY/innerHeight-.5)*10};
+  window.addEventListener('resize',resize);window.visualViewport?.addEventListener('resize',resize);window.addEventListener('mousemove',move,{passive:true});const unsubscribe=loader.subscribe(()=>{key=''});resize();
   const shotFor=(frame:number):Shot|undefined=>loader.manifest?.shots.find(s=>frame>=Math.min(s.from,s.to)&&frame<=Math.max(s.from,s.to));
   const drawShot=(sceneIndex:number,frame:number,shift=0,opacity=1,clip:'left'|'right'|undefined=undefined,transitionT=1)=>{
    const scene=scenes[sceneIndex],shot=shotFor(frame);if(!shot||!loader.manifest)return;
@@ -20,7 +20,7 @@ export function Stage({loader,statesRef}:{loader:FrameLoader;statesRef:React.Mut
    const paint=(im:HTMLImageElement|undefined,opacity=1)=>{if(!im)return;ctx.globalAlpha=opacity;ctx.drawImage(im,offX+shot.box[0]*scale,offY+shot.box[1]*scale,shot.box[2]*scale,shot.box[3]*scale)};
    paint(a,opacity);if(b&&b!==a)paint(b,opacity*frac);ctx.globalAlpha=1;if(clip)ctx.restore();
   };
-  const draw=()=>{const dpr=Math.min(devicePixelRatio||1,2),vw=innerWidth,vh=innerHeight;mouse.current.x+=(mouse.current.tx-mouse.current.x)*.06;mouse.current.y+=(mouse.current.ty-mouse.current.y)*.06;const states=statesRef.current;
+  const draw=()=>{const dpr=Math.min(devicePixelRatio||1,2),vw=innerWidth,vh=innerHeight;mouse.current.x+=(mouse.current.tx-mouse.current.x)*.075;mouse.current.y+=(mouse.current.ty-mouse.current.y)*.075;const states=statesRef.current;
    if(states.length){const y=window.scrollY,lead=.78*vh,span=.62*vh;let active=0;for(let i=0;i<states.length;i++)if(y>=states[i].top-lead)active=i;const cur=states[active];const frame=scenes[active].from+(scenes[active].to-scenes[active].from)*cur.p;
     const t=active>0?Math.max(0,Math.min(1,(y-(cur.top-lead))/span)):1;
     const nextFrame=cur.p===0?scenes[active].from:frame;
@@ -31,6 +31,6 @@ export function Stage({loader,statesRef}:{loader:FrameLoader;statesRef:React.Mut
     }
    }
    raf=requestAnimationFrame(draw);
-  };draw();return()=>{cancelAnimationFrame(raf);unsubscribe();window.removeEventListener('resize',resize);window.removeEventListener('mousemove',move)};
+  };draw();return()=>{cancelAnimationFrame(raf);unsubscribe();window.removeEventListener('resize',resize);window.visualViewport?.removeEventListener('resize',resize);window.removeEventListener('mousemove',move)};
  },[loader,statesRef]);return <canvas ref={ref} className="stage" aria-hidden="true"/>;
 }
