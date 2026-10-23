@@ -343,3 +343,26 @@ footer{color:#b1a493;border-color:rgba(225,194,149,.15)}
 @media(max-width:819px){.layer-back:after{opacity:.045}.hero-copy{background:linear-gradient(145deg,rgba(20,18,18,.96),rgba(12,12,14,.91));border-color:rgba(225,194,149,.2);box-shadow:0 22px 72px rgba(0,0,0,.5)}.about-copy,.journey-copy,.skills-copy{background:linear-gradient(145deg,rgba(20,18,18,.97),rgba(12,12,14,.94));border-color:rgba(225,194,149,.2)}.hero h1{font-size:clamp(44px,10.5vw,78px)}.hero-description{font-size:15px;color:#d8cbb9}.intro{color:#c7b9a7}.project-card{background:linear-gradient(145deg,#211e1e,#121214);border-color:rgba(225,194,149,.2)}.project-card p{color:#d0c2b1}.journey-copy .timeline-item h3{color:#f8eddd}.skills-copy p{color:#d0c1af}.contact-links a{color:#fff2de}}
 @media(max-width:480px){.hero-copy{padding:17px 15px;border-radius:20px}.eyebrow{letter-spacing:.12em;font-size:9px}.actions .pill{font-size:12px}.stat-card{border-radius:16px}.nav-pill button{font-size:10px}}
 @media(prefers-reduced-motion:reduce){body:after{display:none}}
+
+/* Verified layout correction: keep the work panels in their own left column.
+   The previous 92vw deck crossed the character canvas and hid the body. */
+@media (min-width: 820px) {
+  .work-deck { left: clamp(32px, 4.5vw, 76px) !important; width: min(50vw, 760px) !important; }
+  .project-card { overflow: hidden; }
+}
+@media (min-width: 820px) and (max-width: 1100px) {
+  .work-deck { width: 48vw !important; }
+  .project-card { grid-template-columns: 1fr !important; }
+  .project-visual { display: none; }
+}
+/* Do not force the animation canvas into an opaque compositing layer. */
+.stage { opacity: 1 !important; mix-blend-mode: normal !important; }
+
+
+/* Final work-panel containment guard: reserve the right side for the character. */
+@media (min-width: 820px) {
+  .work-deck { max-width: calc(100vw - clamp(32px, 4.5vw, 76px) - 44vw) !important; }
+  .project-card { max-width: 100%; }
+  .project-card, .project-visual { min-width: 0; }
+}
+.stage { pointer-events: none; }
