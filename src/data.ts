@@ -17,7 +17,7 @@ export const profile = {
   skills:['Social Media Marketing','Content Strategy','SEO','Keyword Research','Brand Promotion','Campaign Planning','Marketing Reporting','Team Coordination','Website Optimisation','Audience Research','Analytics','Online Advertising','Creative Direction','Content Calendars','MS Word','Basic Excel'],
   coding:[{value:'SEO',suffix:'+',label:'Search focus'},{value:'SOCIAL',suffix:'★',label:'Community'},{value:'CONTENT',suffix:'+',label:'Creative output'},{value:'GROWTH',suffix:'★',label:'Growth mindset'}],
   certifications:[{title:'SEO & Keyword Research',issuer:'IT Hub Solution · Internship exposure'},{title:'Social Media Marketing',issuer:'IT Hub Solution · Internship exposure'},{title:'Online Advertising',issuer:'IT Hub Solution · Internship exposure'},{title:'Audience Research',issuer:'IT Hub Solution · Internship exposure'},{title:'Analytics & Reporting',issuer:'IT Hub Solution · Internship exposure'},{title:'Website Optimisation',issuer:'IT Hub Solution · Internship exposure'}],
-  email:'asarnavsharma04@gmail.com', github:'https://github.com/YOUR-USERNAME', linkedin:'https://www.linkedin.com/in/aranav-sharma-161880443?utm_source=share_via&utm_content=profile&utm_medium=member_android', resume:'./resume.pdf',
+  email:'asarnavsharma04@gmail.com', github:'https://github.com/AranavSharma07', linkedin:'https://www.linkedin.com/in/aranav-sharma-161880443?utm_source=share_via&utm_content=profile&utm_medium=member_android', resume:'./resume.pdf',
   education:'B.Sc. Physics · Currently pursuing', college:'Daudnagar College, Daudnagar · Magadh University'
 };
 export type SceneId='hero'|'about'|'work'|'journey'|'skills'|'awards'|'contact';
